@@ -162,3 +162,108 @@ def determinar_paciente_con_menor_dias_de_internacion(lista_pacientes: list) -> 
     
     print(paciente_menor_internacion)
     return
+
+
+
+def determinar_pacientes_internacion_mas_5_dias(lista_pacientes: list, contador: int) -> int:
+    """ 
+    Determina cuantos pacientes tienen más de 5 días de internación
+    
+    Args:
+        lista_pacientes(list): lista de pacientes a determinar pacientes con más de 5 días de internación.
+    
+    Return:
+        (int): La cantidad de pacientes con más de 5 días de internación
+    """
+    for i in range(len(lista_pacientes)):
+        if lista_pacientes[i][4] > 5:
+            contador += 1
+    return contador
+
+def calcular_promedio_dias_internacion(lista_pacientes: list) -> float|None:
+    """ 
+    Calcula el promedio de días de internación de todos los pacientes
+    
+    Args:
+        lista_pacientes(list); La lista de pacientes a calcular promedio de dias de internación
+    
+    Return:
+        (float): El promedio de los días de internación de todos los pacientes
+    """
+    total_dias =  total_dias_de_intenacion_pacientes(lista_pacientes)
+    cantidad_pacientes = len(lista_pacientes)
+    
+    if cantidad_pacientes > 0:
+        return total_dias / cantidad_pacientes
+    else:
+        print("No hay ningún paciente registrado")
+        return 
+
+
+def total_dias_de_intenacion_pacientes(lista_pacientes:list) -> int:
+    """ 
+    Calcula el total de días de internación de todos los pacientes.
+    
+    Args:
+        lista_pacientes (list): La lista de pacientes para calcular el total de días de internación.
+    
+    Return:
+        (int): El total de días de internación de todos los pacientes.
+    """
+    acumulador = 0
+    for i in range(len(lista_pacientes)):
+        acumulador += lista_pacientes[i][4]
+    return acumulador
+
+
+def menu():
+    """ 
+    Menú iterativo para que el usuario pueda elegir 
+    entre las diferentes opciones del sistema.
+    """
+    pacientes = []
+    contador_pacientes_mas_5_dias = 0
+    
+    print("¡Bienvenido! Elija una opción:")
+    mostrar_opciones()
+    
+    opcion = int(input("Elija una opción (1-9): "))
+    
+    while opcion != 9:
+        
+        if opcion == 1:
+            cargar_pacientes(pacientes)
+        
+        elif opcion == 2:
+            mostrar_lista_de_pacientes(pacientes)
+        
+        elif opcion == 3:
+            buscar_paciente(pacientes)
+        
+        elif opcion == 4:
+            ordenamiento_de_pacientes(pacientes)
+        
+        elif opcion ==5:
+            determinar_paciente_con_mayor_dias_de_internacion(pacientes)
+        
+        elif opcion == 6:
+            determinar_paciente_con_menor_dias_de_internacion(pacientes)    
+        
+        elif opcion == 7:
+            resultado = determinar_pacientes_internacion_mas_5_dias(pacientes, contador_pacientes_mas_5_dias)
+            print(f"Cantidad de pacientes que llevan internados más de 5 días: {resultado}")
+        
+        elif opcion == 8:
+            promedio = calcular_promedio_dias_internacion(pacientes)
+            if promedio != None:
+                print(f"Promedio de días de internación: {promedio:.2f}")
+        
+        
+        print("¿Que desea hacer ahora?")
+        mostrar_opciones()
+        opcion = int(input("Elija una opción (1-9): "))
+    
+    print("Saliendo del sistema. ¡Hasta luego!")
+
+
+menu()
