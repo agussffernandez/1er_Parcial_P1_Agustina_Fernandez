@@ -53,3 +53,21 @@ def mostrar_lista_de_pacientes(lista_pacientes: list) -> None:
     """
     print(lista_pacientes)
 
+
+def buscar_paciente(lista_pacientes: list) -> None|list|None|str:
+    """ 
+    Busca a un paciente por el número de historia clinica y muestra sus datos
+    
+    Args:
+        lista_pacientes(list): la lista de pacientes en donde buscar al paciente por nro de clinica.
+    
+    Return:
+        (lNone|list): Muestra los datos del paciente búscado si es que esta
+        (None|str): Imprime paciente no encontrado
+    """
+    nro_clinica_a_buscar = int(input("Ingrese el numero de clinica del paciente a buscar: "))
+    
+    for i in range(len(lista_pacientes)):
+        if lista_pacientes[i][0] == nro_clinica_a_buscar:
+            return print(lista_pacientes[i])
+    return print("Paciente no encontrado")
