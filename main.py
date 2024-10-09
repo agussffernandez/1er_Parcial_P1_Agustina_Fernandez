@@ -7,18 +7,17 @@ def mostrar_opciones():
         1. Cargar pacientes
         2. Mostrar la lista de pacientes
         3. Busqueda de pacientes
-        5. Ordenamiento de pacientes
-        6. Determinar el paciente con más dias de internación
-        7. Determinar el paciente con menos dias de internación
-        8. Cantidad de pacientes con días de internación mayor a 5 días
-        9. Promedio de días de internación de todos los pacientes
-        10. Salir
+        4. Ordenamiento de pacientes
+        5. Determinar el paciente con más dias de internación
+        6. Determinar el paciente con menos dias de internación
+        7. Cantidad de pacientes con días de internación mayor a 5 días
+        8. Promedio de días de internación de todos los pacientes
+        9. Salir
         """
     )
 
 
-
-def cargar_pacientes(lista_pacientes: list) -> list:
+def cargar_pacientes(lista_pacientes: list) -> list[list]:
     """ 
     Carga a un nuevo paciente con los datos ingresados por el usuario
     
@@ -52,11 +51,14 @@ def mostrar_lista_de_pacientes(lista_pacientes: list) -> None:
         (None): Imprime por pantalla la lista de pacientes almacenados
     """
     if not lista_pacientes:
-        return print("No hay pacientes registrados.")
-    return print(lista_pacientes)
+        print("No hay pacientes registrados.")
+        return 
+    
+    print(lista_pacientes)
+    return 
 
 
-def buscar_paciente(lista_pacientes: list) -> None|list|None|str:
+def buscar_paciente(lista_pacientes: list):
     """ 
     Busca a un paciente por el número de historia clinica y muestra sus datos
     
@@ -64,21 +66,25 @@ def buscar_paciente(lista_pacientes: list) -> None|list|None|str:
         lista_pacientes(list): la lista de pacientes en donde buscar al paciente por nro de clinica.
     
     Return:
-        (lNone|list): Muestra los datos del paciente búscado si es que esta
+        (list): Muestra los datos del paciente búscado si es que esta
         (None|str): Imprime paciente no encontrado
     """
     if not lista_pacientes:
-        return print("No hay pacientes registrados.")
+        print("No hay pacientes registrados.")
+        return 
     
     nro_clinica_a_buscar = int(input("Ingrese el numero de clinica del paciente a buscar: "))
     
     for i in range(len(lista_pacientes)):
         if lista_pacientes[i][0] == nro_clinica_a_buscar:
-            return print(lista_pacientes[i])
-    return print("Paciente no encontrado")
+            print(lista_pacientes[i])
+            return 
+    
+    print("Paciente no encontrado")
+    return
 
 
-def ord_burbuja(array):
+def ord_burbuja(array: list):
     longitud = len(array)
     
     for i in range(longitud):
@@ -90,7 +96,7 @@ def ord_burbuja(array):
                 array[j] = temporal # A la posición j, le dejo el núm que estaba en j+1 (que para no pisarlo lo guarde en temporal)
 
 
-def ordenamiento_de_pacientes(lista_pacientes: list) -> list:
+def ordenamiento_de_pacientes(lista_pacientes: list) :
     """ 
     Ordena a los pacientes por su numero de historia clinica
     
@@ -98,10 +104,61 @@ def ordenamiento_de_pacientes(lista_pacientes: list) -> list:
         lista_pacientes(list): lista de pacientes a ordenar por nro de historia clinica.
     
     Return:
-        (list): lista de pacientes ordenados por nro de historia clinica
+        (None|list): lista de pacientes ordenados por nro de historia clinica
+        (None|str): Imprime que no hay pacientes registrados
     """
     if not lista_pacientes:
         return print("No hay pacientes registrados.")
     # ordenamiento burbuja para ordenar 
     ord_burbuja(lista_pacientes)
-    return lista_pacientes
+    print(lista_pacientes)
+    return 
+
+
+def determinar_paciente_con_mayor_dias_de_internacion(lista_pacientes: list):
+    """ 
+    Determina el paciente con más días de internación, mostrando sus datos completos 
+    
+    Args:
+        lista_pacientes(list): la lista de pacientes a determinar paciente con más días de internación
+    
+    Return:
+        (None|list): La lista del paciente con más días de internación
+        (None|str): Imprime que no hay pacientes registrados
+    """
+    if not lista_pacientes:
+        print("No hay pacientes registrados.")
+        return 
+    
+    paciente_mayor_internacion = lista_pacientes[0]
+    for i in range(1, len(lista_pacientes)):
+        if lista_pacientes[i][4] > paciente_mayor_internacion[4]: 
+            paciente_mayor_internacion = lista_pacientes[i]
+    
+    print(paciente_mayor_internacion)
+    return
+
+
+
+def determinar_paciente_con_menor_dias_de_internacion(lista_pacientes: list) -> list|None:
+    """ 
+    Determina el paciente con menos días de internación, mostrando sus datos completos 
+    
+    Args:
+        lista_pacientes(list): la lista de pacientes a determinar paciente con menos días de internación
+    
+    Return:
+        (None|list): La lista del paciente con menos días de internación
+        (None|str): Imprime que no hay pacientes registrados
+    """
+    if not lista_pacientes:
+        print("No hay pacientes registrados.")
+        return 
+    
+    paciente_menor_internacion = lista_pacientes[0]
+    for i in range(1, len(lista_pacientes)):
+        if lista_pacientes[i][4] < paciente_menor_internacion[4]: 
+            paciente_menor_internacion = lista_pacientes[i]
+    
+    print(paciente_menor_internacion)
+    return
