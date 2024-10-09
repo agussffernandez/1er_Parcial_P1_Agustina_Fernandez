@@ -16,6 +16,8 @@ def mostrar_opciones():
         """
     )
 
+
+
 def cargar_pacientes(lista_pacientes: list) -> list:
     """ 
     Carga a un nuevo paciente con los datos ingresados por el usuario
@@ -37,3 +39,17 @@ def cargar_pacientes(lista_pacientes: list) -> list:
     lista_pacientes.append(datos_nuevo_paciente)
     
     return lista_pacientes
+
+
+def mostrar_lista_de_pacientes(lista_pacientes: list) -> None:
+    """ 
+    Muestra todos los datos de los pacientes almacenados
+    
+    Args:
+        lista_pacientes(list): lista de pacientes almacenador a mostrar
+    
+    Return:
+        (None): Imprime por pantalla la lista de pacientes almacenados
+    """
+    print(lista_pacientes)
+
