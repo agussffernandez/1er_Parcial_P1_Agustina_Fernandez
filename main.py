@@ -1,3 +1,29 @@
+# VALIDACIONES
+def validar_opciones(opcion: int):
+    """ 
+    Valida que la opcion ingresada este en un rango del 1 al 9
+    """
+    while opcion < 1 or opcion > 9:
+        opcion=int(input("ERROR. Debe seleccionar una opción del 1 al 9: "))
+    return opcion
+
+def validar_edad(edad: int):
+    """ 
+    Valida que se ingrese un edad coherente (entre 1 y 99 años)
+    """
+    while edad < 1 or edad > 99:
+        edad = int(input("ERROR. Debe ingresar una edad válida (de 1 a 99 años): "))
+    return edad
+
+def validar_dias_internacion(dias: int):
+    """ 
+    Valida que los días no puedan ser negativos o cero
+    """
+    while dias < 1:
+        dias = int(input("ERROR. Ingrese días validos (1 día o más): "))
+    return dias
+
+
 def mostrar_opciones():
     """ 
     Muestra las opciones disponibles
@@ -29,9 +55,9 @@ def cargar_pacientes(lista_pacientes: list) -> list[list]:
     """
     num_de_historia_clinica = int(input("Ingrese el número de historia clinica: "))
     nombre_paciente = str(input("Ingrese el nombre del paciente: ")).capitalize()
-    edad_paciente = int(input("Ingrese la edad del paciente: "))
+    edad_paciente = validar_edad(int(input("Ingrese la edad del paciente: ")))
     diagnostico = str(input("Ingrese el diagnostico del paciente: ")).capitalize()
-    cantidad_dias_internacion = int(input("Ingrese la cantidad de dias de internacion: "))
+    cantidad_dias_internacion = validar_dias_internacion(int(input("Ingrese la cantidad de dias de internacion: ")))
     
     datos_nuevo_paciente = [num_de_historia_clinica, nombre_paciente, edad_paciente, diagnostico, cantidad_dias_internacion]
     
@@ -58,7 +84,7 @@ def mostrar_lista_de_pacientes(lista_pacientes: list) -> None:
     return 
 
 
-def buscar_paciente(lista_pacientes: list):
+def buscar_paciente(lista_pacientes: list) -> None:
     """ 
     Busca a un paciente por el número de historia clinica y muestra sus datos
     
@@ -85,6 +111,12 @@ def buscar_paciente(lista_pacientes: list):
 
 
 def ord_burbuja(array: list):
+    """ 
+    Ordena una lista usando el algoritmo de burbuja.
+    
+    Args:
+        array(list): la lista a ordenar.
+    """
     longitud = len(array)
     
     for i in range(longitud):
@@ -96,7 +128,7 @@ def ord_burbuja(array: list):
                 array[j] = temporal # A la posición j, le dejo el núm que estaba en j+1 (que para no pisarlo lo guarde en temporal)
 
 
-def ordenamiento_de_pacientes(lista_pacientes: list) :
+def ordenamiento_de_pacientes(lista_pacientes: list) -> None:
     """ 
     Ordena a los pacientes por su numero de historia clinica
     
@@ -165,7 +197,7 @@ def determinar_paciente_con_menor_dias_de_internacion(lista_pacientes: list) -> 
 
 
 
-def determinar_pacientes_internacion_mas_5_dias(lista_pacientes: list, contador: int) -> int:
+def determinar_pacientes_internacion_mas_5_dias(lista_pacientes: list) -> int:
     """ 
     Determina cuantos pacientes tienen más de 5 días de internación
     
@@ -175,10 +207,12 @@ def determinar_pacientes_internacion_mas_5_dias(lista_pacientes: list, contador:
     Return:
         (int): La cantidad de pacientes con más de 5 días de internación
     """
+    contador = 0
     for i in range(len(lista_pacientes)):
         if lista_pacientes[i][4] > 5:
             contador += 1
     return contador
+
 
 def calcular_promedio_dias_internacion(lista_pacientes: list) -> float|None:
     """ 
@@ -216,18 +250,19 @@ def total_dias_de_intenacion_pacientes(lista_pacientes:list) -> int:
     return acumulador
 
 
+
+
 def menu():
     """ 
     Menú iterativo para que el usuario pueda elegir 
     entre las diferentes opciones del sistema.
     """
     pacientes = []
-    contador_pacientes_mas_5_dias = 0
     
     print("¡Bienvenido! Elija una opción:")
     mostrar_opciones()
     
-    opcion = int(input("Elija una opción (1-9): "))
+    opcion = validar_opciones(int(input("Elija una opción (1-9): ")))
     
     while opcion != 9:
         
@@ -250,7 +285,7 @@ def menu():
             determinar_paciente_con_menor_dias_de_internacion(pacientes)    
         
         elif opcion == 7:
-            resultado = determinar_pacientes_internacion_mas_5_dias(pacientes, contador_pacientes_mas_5_dias)
+            resultado = determinar_pacientes_internacion_mas_5_dias(pacientes)
             print(f"Cantidad de pacientes que llevan internados más de 5 días: {resultado}")
         
         elif opcion == 8:
@@ -261,7 +296,7 @@ def menu():
         
         print("¿Que desea hacer ahora?")
         mostrar_opciones()
-        opcion = int(input("Elija una opción (1-9): "))
+        opcion = validar_opciones(int(input("Elija una opción (1-9): ")))
     
     print("Saliendo del sistema. ¡Hasta luego!")
 
