@@ -51,7 +51,9 @@ def mostrar_lista_de_pacientes(lista_pacientes: list) -> None:
     Return:
         (None): Imprime por pantalla la lista de pacientes almacenados
     """
-    print(lista_pacientes)
+    if not lista_pacientes:
+        return print("No hay pacientes registrados.")
+    return print(lista_pacientes)
 
 
 def buscar_paciente(lista_pacientes: list) -> None|list|None|str:
@@ -65,9 +67,41 @@ def buscar_paciente(lista_pacientes: list) -> None|list|None|str:
         (lNone|list): Muestra los datos del paciente búscado si es que esta
         (None|str): Imprime paciente no encontrado
     """
+    if not lista_pacientes:
+        return print("No hay pacientes registrados.")
+    
     nro_clinica_a_buscar = int(input("Ingrese el numero de clinica del paciente a buscar: "))
     
     for i in range(len(lista_pacientes)):
         if lista_pacientes[i][0] == nro_clinica_a_buscar:
             return print(lista_pacientes[i])
     return print("Paciente no encontrado")
+
+
+def ord_burbuja(array):
+    longitud = len(array)
+    
+    for i in range(longitud):
+        for j in range(longitud - 1 - i): # Ponemos el -1 para dejar el último número fijo (ya que el ordenamiento burbuja es así). La i hace que el algoritmo no de vueltas de más al pedo.
+            if array[j][0] > array[j+1][0]: # compara [j][0] el siguiente elemento de de la lista que sigue [j+1][0]
+                # Intercambio los elementos
+                temporal = array[j+1] #guarda el número sig al actual, para no pisarlo
+                array[j+1] = array[j] # A la posición del núm sig, le guardo la posición j
+                array[j] = temporal # A la posición j, le dejo el núm que estaba en j+1 (que para no pisarlo lo guarde en temporal)
+
+
+def ordenamiento_de_pacientes(lista_pacientes: list) -> list:
+    """ 
+    Ordena a los pacientes por su numero de historia clinica
+    
+    Args:
+        lista_pacientes(list): lista de pacientes a ordenar por nro de historia clinica.
+    
+    Return:
+        (list): lista de pacientes ordenados por nro de historia clinica
+    """
+    if not lista_pacientes:
+        return print("No hay pacientes registrados.")
+    # ordenamiento burbuja para ordenar 
+    ord_burbuja(lista_pacientes)
+    return lista_pacientes
